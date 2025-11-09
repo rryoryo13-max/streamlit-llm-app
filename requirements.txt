@@ -1,8 +1,10 @@
 streamlit
 python-dotenv
-langchain
-langchain-openai
-openai
+langchain==0.1.20
+langchain-openai==0.1.8
+langchain-community==0.0.38
+langchain-core==0.1.52
+openai==1.30.1
 altair==5.5.0
 attrs==25.4.0
 blinker==1.9.0

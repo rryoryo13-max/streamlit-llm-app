@@ -35,11 +35,11 @@ Programming_template = """
 def get_llm_response(input_text, selected_mode):
     try:
         from langchain_openai import OpenAI
-        from langchain.prompts import PromptTemplate
+        from langchain_core.prompts import PromptTemplate
         from langchain.chains import LLMChain
     except ImportError:
-        # 古いバージョンの場合
         try:
+            # 古いバージョンの場合
             from langchain.llms import OpenAI
             from langchain.prompts import PromptTemplate
             from langchain.chains import LLMChain
