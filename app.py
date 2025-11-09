@@ -1,10 +1,16 @@
 
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
 import streamlit as st
-from langchain import LLMChain
+
+# 環境変数の確認
+if not os.getenv("OPENAI_API_KEY"):
+    st.error("🔑 OpenAI APIキーが設定されていません。")
+    st.info("環境変数 OPENAI_API_KEY を設定してください。")
+    st.stop()
 
 st.title("育児仕事用")
 st.write("##### 動作モード1: 育児相談")
@@ -27,9 +33,19 @@ Programming_template = """
 
 # LLMに回答を生成させる関数
 def get_llm_response(input_text, selected_mode):
-    from langchain.llms import OpenAI
-    from langchain.prompts import PromptTemplate
-    from langchain.chains import LLMChain
+    try:
+        from langchain_openai import OpenAI
+        from langchain.prompts import PromptTemplate
+        from langchain.chains import LLMChain
+    except ImportError:
+        # 古いバージョンの場合
+        try:
+            from langchain.llms import OpenAI
+            from langchain.prompts import PromptTemplate
+            from langchain.chains import LLMChain
+        except ImportError:
+            st.error("LangChainパッケージがインストールされていません。requirements.txtを確認してください。")
+            return "エラー: パッケージが見つかりません"
     
     # LLMのインスタンス作成
     llm = OpenAI(temperature=0.7)
