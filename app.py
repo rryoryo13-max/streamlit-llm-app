@@ -33,19 +33,9 @@ Programming_template = """
 
 # LLMに回答を生成させる関数
 def get_llm_response(input_text, selected_mode):
-    try:
-        from langchain_openai import OpenAI
-        from langchain_core.prompts import PromptTemplate
-        from langchain.chains import LLMChain
-    except ImportError:
-        try:
-            # 古いバージョンの場合
-            from langchain.llms import OpenAI
-            from langchain.prompts import PromptTemplate
-            from langchain.chains import LLMChain
-        except ImportError:
-            st.error("LangChainパッケージがインストールされていません。requirements.txtを確認してください。")
-            return "エラー: パッケージが見つかりません"
+    from langchain.llms import OpenAI
+    from langchain.prompts import PromptTemplate
+    from langchain.chains import LLMChain
     
     # LLMのインスタンス作成
     llm = OpenAI(temperature=0.7)
